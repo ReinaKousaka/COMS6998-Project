@@ -1,0 +1,512 @@
+---
+swagger: "2.0"
+info:
+  description: "AI Customer Service application, built during the Cloud and Big Data\
+    \ course at Columbia University."
+  version: "1.0.0"
+  title: "AI Customer Service API"
+host: "6xw1pvczik.execute-api.us-east-1.amazonaws.com"
+basePath: "/test-stage"
+schemes:
+- "https"
+paths:
+  /chatbot:
+    post:
+      tags: 
+        - Chatbot
+      operationId: "sendMessage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "BotRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/BotRequest"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/BotResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/Error"
+        "403":
+          description: "403 response"
+          schema:
+            $ref: "#/definitions/Error"
+    options:
+      tags: 
+        - Chatbot      
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/BotResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  
+  /cars:
+    post:
+      tags:
+        - Car
+      summary: "Create a new car to the platform"
+      operationId: "addCarID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "postCar"
+          description: "car to create"
+          required: true
+          schema: 
+              type: "object"
+              properties:
+                  brand:
+                    type: "string"
+                  type:
+                    type: "string"
+                  price:
+                    type: "number"
+                  miles:
+                    type: "number"
+      responses:
+        "200":
+          description: "Car is created"
+          schema:
+            $ref: "#/definitions/Car"            
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  
+  /cars/{carid}:
+    get:
+      tags:
+        - Car
+      summary: "Get a car by ID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "carid"
+          description: "The ID of the car to retrieve"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Get the car information by id"
+          schema:
+            $ref: "#/definitions/Car"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string        
+    
+    put:
+      tags:
+        - Car
+      summary: "update the car information by id"
+      description: "update the car information by id"
+      operationId: "updateCar"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "carid"
+        description: "The ID of the car to update"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "car"
+        description: "The car data to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Car"
+      responses:
+        "200":
+          description: "update successfully"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        
+        
+    delete:
+      tags:
+        - Car
+      summary: "delete the car by id"
+      description: "Dealer delete the car by id"
+      operationId: "deleteCar"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "carid"
+          description: "The ID of the car to be deleted"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "delete successfully"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+      
+  /wishlist:
+    post:
+      tags:
+        - Wishlist
+      description: "people add car to the wishlist"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "postWishlist"
+          description: "post car to wishlist"
+          required: true
+          schema:
+            $ref: "#/definitions/Car"
+      responses:
+        "200":
+          description: "Wishlist is created"
+          schema:
+            $ref: "#/definitions/Wishlist"            
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /wishlist/{UserID}:    
+    get:
+      tags:
+        - Wishlist
+      summary: "Get a wishlist by wishlistID, which is also UserID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "UserID"
+          description: "The ID of the wishlist to retrieve"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Get the car information by id"
+          schema:
+            $ref: "#/definitions/Wishlist"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /wishlist/{UserID}/{carid}:      
+    delete:
+      tags:
+        - Wishlist
+      summary: "delete carid in wishlist"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "UserID"
+          description: "get wishlistID which is also UserID"
+          required: true
+          type: "string"
+        - in: "path"
+          name: "carid"
+          description: "delete carid in wishlist"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Successfully delete"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string        
+  
+  /appointment:
+    post:
+      tags:
+        - Appointment
+      description: "create an appointment with dealerID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "postReservation"
+          required: true
+          schema:
+            type: object
+            properties:
+              sender:
+                $ref: "#/definitions/UserID"
+              receiver:
+                $ref: "#/definitions/UserID"
+              time:
+                type: "string"
+              date:
+                type: "string"
+      responses:
+        "200":
+          description: "Reservation successfully"
+          schema:
+            $ref: "#/definitions/Reservation"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        
+        
+  /appointment/{appointmentID}:    
+    get:
+      tags: 
+        - Appointment
+      description: "get the appointment information"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "appointmentID"
+        required: true
+        type: string
+      
+      responses:
+        "200":
+          description: "Reservation successfully"
+          schema:
+            $ref: "#/definitions/Reservation"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    delete:
+      tags:
+        - Appointment
+      description: "cancel the reservation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "appointmentID"
+        required: true
+        type: string
+      responses:
+        "200":
+          description: "cancelled successfully"
+        "500":
+          description: "500 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        "403":
+          description: "403 response"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        
+        
+definitions:
+  BotRequest:
+    type: "object"
+    properties:
+      messages:
+        type: "array"
+        items:
+          $ref: "#/definitions/Message"
+  Message:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+      unstructured:
+        $ref: "#/definitions/UnstructuredMessage"
+  UnstructuredMessage:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      text:
+        type: "string"
+      timestamp:
+        type: "string"
+        format: "datetime"
+  BotResponse:
+    type: "object"
+    properties:
+      messages:
+        type: "array"
+        items:
+          $ref: "#/definitions/Message"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+  Car:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      brand:
+        type: "string"
+      type:
+        type: "string"
+      price:
+        type: "number"
+      miles:
+        type: "number"
+  Wishlist:
+    type: "object"
+    properties:
+      id:
+        $ref: "#/definitions/UserID"
+      carlist:
+        type: "array"
+        items:
+          $ref: "#/definitions/Car"
+  UserID:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+  
+  Reservation:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      date:
+        type: "string"
+      time:
+        type: "string"
+      sender:
+        $ref: "#/definitions/UserID"
+      receiver:
+        $ref: "#/definitions/UserID"
+  
+    
