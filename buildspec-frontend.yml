@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+  build:
+    commands:
+      - cp -R ./frontend ./frontend-copy
+  post_build:
+    commands:
+      - aws s3 cp frontend-copy s3://cs6998-proj-frontend --recursive
+
+artifacts:
+  files:
+    - frontend-copy/**
