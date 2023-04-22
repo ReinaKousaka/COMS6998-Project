@@ -5,7 +5,7 @@ phases:
       python: 3.9
   build:
     commands:
-      - cp -R ./frontend ./frontend-copy
+      - cp -R ./frontend/build ./frontend-copy
   post_build:
     commands:
       - aws s3 cp frontend-copy s3://cs6998-proj-frontend --recursive

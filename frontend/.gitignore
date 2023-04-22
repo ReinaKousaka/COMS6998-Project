@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production needed to depoly
+# /build
 
 # misc
 .DS_Store
