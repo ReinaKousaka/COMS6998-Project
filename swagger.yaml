@@ -1,4 +1,3 @@
----
 swagger: "2.0"
 info:
   description: "AI Customer Service application, built during the Cloud and Big Data\
@@ -212,7 +211,7 @@ paths:
             properties:
               error:
                 type: string
-      
+ 
   /wishlist/{UserID}:
     post:
       tags:
@@ -320,7 +319,7 @@ paths:
             properties:
               error:
                 type: string        
-  
+
   /appointment:
     post:
       tags:
@@ -364,8 +363,7 @@ paths:
             properties:
               error:
                 type: string
-        
-        
+     
   /appointment/{appointmentID}:    
     get:
       tags: 
@@ -430,8 +428,7 @@ paths:
             properties:
               error:
                 type: string
-        
-        
+
 definitions:
   BotRequest:
     type: "object"
@@ -513,5 +510,3 @@ definitions:
         $ref: "#/definitions/UserID"
       receiver:
         $ref: "#/definitions/UserID"
-  
-    
