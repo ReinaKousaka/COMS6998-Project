@@ -20,13 +20,7 @@ def lambda_handler(event, context):
     msg_from_user = json.loads(event["body"])["messages"][0]["unstructured"]["text"]
     print(f"Message from frontend: {msg_from_user}")
 
-    res = 'Please try again.'
-    if msg_from_user is None or len(msg_from_user) < 1:
-        return {
-            'statusCode': 200,
-            'body': json.dumps('Please try again.')
-        }
-    else:
+    if msg_from_user:
         response = client.recognize_text(
             botId='WVIDOLLPX5', # MODIFY HERE
             botAliasId='TSTALIASID', # MODIFY HERE
@@ -35,8 +29,10 @@ def lambda_handler(event, context):
             text=msg_from_user
         )
         res = response['messages'][0]['content']
+    else:
+        res = 'Please try again.'
+    print(f'Message from Chatbot: {res}')
     
-    print(f"Message from Chatbot: {res}")
     return {
         'statusCode': 200,
         'headers': {
