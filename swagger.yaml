@@ -476,12 +476,18 @@ definitions:
         type: "string"
       brand:
         type: "string"
-      type:
+      model:
         type: "string"
       price:
         type: "number"
       miles:
         type: "number"
+      owner:
+        type: "string"
+      image:
+        type: "string"
+      is_available:
+        type: "boolean"
   Wishlist:
     type: "object"
     properties:
