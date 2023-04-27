@@ -8,8 +8,10 @@ const createCar = async (car) => {
 
     try {
         let response = await apigClient.carsPost(params, body, additionalParams);
+        alert('Car added successfully!');
         console.log(`Car added successfully: ${response}`);
     } catch (err) {
+        alert('Warning: failed to add car!');
         console.error(`failed to add car: ${err}`);
     }
 };
