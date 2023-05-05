@@ -18,6 +18,7 @@ table = dynamodb.Table('car_info')
 host = "search-cars-hq323ir5mwvjij34ijp3wzituu.us-east-1.es.amazonaws.com"
 region = "us-east-1"
 
+# index opensearch
 def insert_opensearch(item):
     try:
         client_OpenSearch = OpenSearch(
