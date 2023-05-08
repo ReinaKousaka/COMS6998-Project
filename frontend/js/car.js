@@ -27,13 +27,14 @@ const deleteCar = async() => {
 
 const uploadCarHandler = async () => {
     // TODO: add images
+    console.log(`user is ${sessionStorage.getItem('user')}`)
     createCar({
         'brand': $('#FormControlInput0').val(),
         'model': $('#FormControlInput1').val(),
         'year': $('#FormControlInput2').val(),
         'miles': $('#FormControlInput3').val(),
         'description': $('#FormControlInput4').val(),
-        'owner': 'yinsongheng@gmail.com'
+        'owner': sessionStorage.getItem('user')
     });
 };
 

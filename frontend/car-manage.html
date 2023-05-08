@@ -34,6 +34,7 @@
     <script src="./js/car-page.js"></script>
     <script src="./js/car.js"></script>
 
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -69,8 +70,16 @@
                     </li>
                 </ul>
                 <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
+                    <div id="login-indicator" class="navbar-brand"></div>
+                    <a id="login-button" type="button" class="btn btn-outline-light me-2"
+                    href="login.html">
+                    Login
+                    </a>
+
+                    <button id="logoff-button" type="button" class="btn btn-outline-light me-2"
+                        onclick="handleLogoff()">
+                    Logoff
+                    </button>
                 </div>
             </div>
         </div>
@@ -89,5 +98,6 @@
     <script>
       var sdk = apigClientFactory.newClient({});
     </script>
+    <script src="./js/login.js"></script>
   </body>
 </html>
