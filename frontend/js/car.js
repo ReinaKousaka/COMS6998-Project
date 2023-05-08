@@ -24,6 +24,51 @@ const deleteCar = async() => {
 
 };
 
+const getCar = async () => {
+    try {
+        let user = sessionStorage.getItem('user');
+        if (!user) return;
+        console.log(`user is ${user}`);
+        let params = {
+            'owner': user
+        };
+        let body = {};
+        let additionalParams = {};
+    
+        let response = await apigClient.carsGet(params, body, additionalParams);
+        alert('Car fetch successfully!');
+        console.log(`Car fetch successfully:`);
+        console.log(response);
+        return response.data;
+    } catch (err) {
+        alert('Warning: failed to fetch car!');
+        console.log(`failed to fetch car: ${err}`);
+    }
+};
+
+const handleGetCarByUser = async () => {
+    try {
+        const cars = await getCar();
+
+        const $tbody = $('#carmanage-tbody');
+        // Iterate through the data array
+        $.each(cars, function (index, item) {
+          const $tr = $('<tr>');
+          $('<th>').text(index + 1).appendTo($tr);
+          $('<td>').text(item.brand).appendTo($tr);
+          $('<td>').text(item.model).appendTo($tr);
+          $('<td>').text(item.year).appendTo($tr);
+          $('<td>').text(item.miles).appendTo($tr);
+          $('<td>').text(item.owner).appendTo($tr);
+      
+          // Append the table row to the tbody
+          $tr.appendTo($tbody);
+        });
+
+    } catch (err) {
+
+    }
+};
 
 const uploadCarHandler = async () => {
     // TODO: add images
