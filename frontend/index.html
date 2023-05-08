@@ -84,6 +84,20 @@
     <div id="recommendations" class="container theme-showcase" role="main">
         <div class="page-header mt-2">
             <div class="float-left"><h3>Recommendations</h3></div>
+            <table id= "recommendationTable" class="table mt-5 body-div">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Miles</th>
+                    <th scope="col">Dealer</th>
+                    </tr>
+                </thead>
+                <tbody id="recommendation-tbody">
+            </tbody>
+            </table>
         </div>
     </div>
 
@@ -123,5 +137,9 @@
     <script src="./js/chat.js"></script>
 
     <script src="./js/login.js"></script>
+    <script src="./js/recommendation.js"></script>
+    <script>
+        window.onload = handleGetRecommendation;
+    </script>
   </body>
 </html>
