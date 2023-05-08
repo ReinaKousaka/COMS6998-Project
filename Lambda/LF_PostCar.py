@@ -7,7 +7,7 @@ import uuid
 
 
 '''
-LF4: Lambda for handling POST /cars
+Lambda for handling POST /cars
 '''
 
 
@@ -18,7 +18,7 @@ table = dynamodb.Table('car_info')
 host = "search-cars-hq323ir5mwvjij34ijp3wzituu.us-east-1.es.amazonaws.com"
 region = "us-east-1"
 
-# index opensearch
+
 def insert_opensearch(item):
     try:
         client_OpenSearch = OpenSearch(
@@ -65,6 +65,7 @@ def lambda_handler(event, context):
         car['car_id'] = str(uuid.uuid1())       # generate unique id
         car['brand'] = car['brand'].title()     # captitalize first letter
         car['is_available'] = True
+        car["score"] = calculate_car_score(car["brand"], car["miles"], car["year"])
         
         # insert to opensearch
         json_object = {
@@ -79,7 +80,7 @@ def lambda_handler(event, context):
         
         # insert to dynamoDB
         response = insert_table(car)
-        # TODO: add image to S3, index OpenSearch
+        # TODO: add image to S3
     except Exception as err:
         print(f'failed to insert to table: {err}')
         ret_status = 400
@@ -105,3 +106,26 @@ def get_awsauth(region, service):
                     region,
                     service,
                     session_token=cred.token)
+
+
+def calculate_car_score(brand, mileage, year):
+    score = 0
+    
+    # Brand score
+    if brand == 'Bmw' or brand == 'Benz':
+        score += 4  # High brand score
+    else:
+        score += 3  # Low brand score
+    
+    # Mileage score
+    if int(mileage) < 5000:
+        score += 2  # High mileage score
+    
+    # Year score
+    if int(year) >= 2020:
+        score += 2  # High year score
+    
+    # Scale the score to a range of 0-5
+    scaled_score = round((score / 7) * 5,2)
+    
+    return str(scaled_score)
