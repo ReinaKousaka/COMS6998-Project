@@ -86,13 +86,13 @@ apigClientFactory.newClient = function (config) {
     apigClient.carsGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['q'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['owner'], ['body']);
         
         var carsGetRequest = {
             verb: 'get'.toUpperCase(),
             path: pathComponent + uritemplate('/cars').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['q']),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['owner']),
             body: body
         };
         
