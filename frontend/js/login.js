@@ -1,4 +1,4 @@
-
+const apigClient = apigClientFactory.newClient();
 var user = sessionStorage.getItem('user');
 
 console.log(`user is ${user}`)
@@ -42,6 +42,32 @@ const handleLogin = async () => {
      } else {
        alert('Invalid username or password');
      }
+};
+
+const handleRegister = async () => {
+    try {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        
+        let params = {};
+        let body = {
+            'email': username,
+            'password': password
+        };
+        let additionalParams = {};
+    
+        try {
+            let response = await apigClient.userPost(params, body, additionalParams);
+            alert('User added successfully!');
+            console.log(`User added successfully: ${response}`);
+        } catch (err) {
+            alert('Warning: failed to add user!');
+            console.log(`failed to add user: ${err}`);
+        }
+    } catch (err) {
+        console.log(`failed to register: ${err}`);
+    }
 };
 
 const handleLogoff = async() => {

@@ -1,7 +1,7 @@
 # COMS6998-Project
 
 ### Deployed Website Endpoint
-http://cs6998-proj-frontend.s3-website-us-east-1.amazonaws.com
+http://cs6998-proj-frontend.s3-website-us-east-1.amazonaws.com <br>
 Note the link may be expired after grading.
 
 ### Design Doc
