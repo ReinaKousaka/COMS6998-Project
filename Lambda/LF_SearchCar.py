@@ -17,7 +17,7 @@ INDEX = "cars"
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('car_info')
 
-
+recommendation_table = dynamodb.Table('user_search')
 def search_brands(brands):
     def get_awsauth(region, service):
         cred = boto3.Session().get_credentials()
@@ -71,8 +71,32 @@ def lambda_handler(event, context):
     print(event)
     global ret_status, ret_msg
     car_brand = []
-    car_brand.append(event["queryStringParameters"]["q"])
+    search_brand = event["queryStringParameters"]["q"].title()
+    car_brand.append(search_brand)
+    current_user = event["queryStringParameters"]["user"]
+
+    response_from_recommendation = recommendation_table.query(
+                KeyConditionExpression=Key('email').eq(current_user)
+                )
     
+    if response_from_recommendation["Count"]==0:
+        item = {
+            "email":current_user,
+            "latest_search": search_brand
+        }
+        insert_table(item)
+    else:
+        response_update = recommendation_table.update_item(
+            Key={
+                'email': current_user
+            },
+            UpdateExpression='set latest_search = :val',
+            ExpressionAttributeValues={
+                ':val': search_brand
+            },
+            ReturnValues="UPDATED_NEW"
+        )
+        
     car_ids = search_brands(car_brand)
     
     if not car_ids:
@@ -88,19 +112,24 @@ def lambda_handler(event, context):
         }
     else:
         res = []
+        print(car_ids)
         for key in car_ids:
             response_from_DB = table.query(
                 KeyConditionExpression=Key('car_id').eq(key)
             )
-            res.append({
-                'brand': response_from_DB['Items'][0]['brand'],
-                'model': response_from_DB['Items'][0]['model'],
-                'year': response_from_DB['Items'][0]['year'],
-                'car_id': response_from_DB['Items'][0]['car_id'],
-                'is_available': response_from_DB['Items'][0]['is_available'],
-            })
-        print(f'response is {res}')
-        # assist with front end
+            print(response_from_DB['Items'])
+            if response_from_DB['Items']:
+                res.append({
+                    'brand': response_from_DB['Items'][0]['brand'],
+                    'model': response_from_DB['Items'][0]['model'],
+                    'year': response_from_DB['Items'][0]['year'],
+                    'car_id': response_from_DB['Items'][0]['car_id'],
+                    'is_available': response_from_DB['Items'][0]['is_available'],
+                    'miles': response_from_DB['Items'][0]['miles'],
+                    'owner': response_from_DB['Items'][0]['owner']
+                })
+            print(f'response is {res}')
+            # assist with front end
         return {
             'statusCode': 200,
             'headers': {
@@ -110,3 +139,14 @@ def lambda_handler(event, context):
             },
             'body': json.dumps(res)
         }
+
+
+def insert_table(item):
+    try:
+        response = recommendation_table.put_item(Item=item)
+    except Exception as err:
+        print(f'failed to insert to table: {err}')
+        ret_status = 400
+        ret_msg = f'failed to insert to table: {err}'
+        return False
+    return True
