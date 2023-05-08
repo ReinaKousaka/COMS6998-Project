@@ -1,4 +1,7 @@
-const apigClient = apigClientFactory.newClient();
+try {
+    var apigClient = apigClientFactory.newClient();
+} catch (err) {}
+
 var user = sessionStorage.getItem('user');
 
 console.log(`user is ${user}`)
@@ -17,31 +20,32 @@ try {
 
 
 const handleLogin = async () => {
-    const isMatch = (username, password) => {
-        if ((username === 'yinsongheng@gmail.com' && password === '12345678')
-            || (username === 'sy3079@columbia.edu' && password === '12345678')
-            || (username === 'ez2347@columbia.edu' && password === '12345678')
-            || (username === 'ezhao19990516@gmail.com' && password === '12345678')
-        )
-            return true;
-        else {
-            return false;
-        }
-    };
-
     console.log(`handlelogin called`);
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    // search by username
-    if (isMatch(username, password)) {
-        user = username;
-        sessionStorage.setItem('user', username);
-        window.location = 'index.html';
-     } else {
-       alert('Invalid username or password');
-     }
+    try {
+        let params = {
+            'email': username
+        };
+        let body = {};
+        let additionalParams = {};
+    
+        let response = await apigClient.userGet(params, body, additionalParams);
+        console.log(response);
+
+        if (response.data == password) {
+            user = username;
+            sessionStorage.setItem('user', username);
+            window.location = 'index.html';
+        } else {
+            alert('Invalid username or password');
+        }
+    } catch (err) {
+        alert('Warning: failed to fetch user!');
+        console.log(`failed to fetch user: ${err}`);
+    }
 };
 
 const handleRegister = async () => {

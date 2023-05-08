@@ -1,4 +1,4 @@
-const apigClient = apigClientFactory.newClient();
+var apigClient = apigClientFactory.newClient();
 var user = sessionStorage.getItem('user');
 
 const getRcommendation = async () => {
