@@ -1,4 +1,4 @@
-const apigClient = apigClientFactory.newClient();
+var apigClient = apigClientFactory.newClient();
 
 
 const createCar = async (car) => {
