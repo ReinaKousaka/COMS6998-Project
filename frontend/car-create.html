@@ -69,9 +69,17 @@
                     </li>
                 </ul>
                 <div class="text-end">
-                    <a class="btn btn-outline-light me-2"
-                      href="login.html">Login
-                </a>
+                  <div id="login-indicator" class="navbar-brand"></div>
+                  <a id="login-button" type="button" class="btn btn-outline-light me-2"
+                  href="login.html">
+                  Login
+                  </a>
+
+                  <button id="logoff-button" type="button" class="btn btn-outline-light me-2"
+                      onclick="handleLogoff()">
+                  Logoff
+                  </button>
+              </div>
                 </div>
             </div>
         </div>
@@ -94,12 +102,12 @@
           <input type="email" class="form-control" id="FormControlInput1" placeholder="Enter the car model here">
         </div>
         <div class="form-group mt-2">
-          <label for="FormControlInpu2">Year</label>
+          <label for="FormControlInput2">Year</label>
           <input type="email" class="form-control" id="FormControlInput2" placeholder="Enter a valid year here">
         </div>
         <div class="form-group mt-2">
-          <label for="FormControlInpu3">Miles</label>
-          <input type="email" class="form-control" id="FormControlInput=3" placeholder="Enter a valid number here">
+          <label for="FormControlInput3">Miles</label>
+          <input type="email" class="form-control" id="FormControlInput3" placeholder="Enter a valid number here">
         </div>
 
         <div class="form-group mt-2">
@@ -120,5 +128,6 @@
     <script>
       var sdk = apigClientFactory.newClient({});
     </script>
+    <script src="./js/login.js"></script>
   </body>
 </html>

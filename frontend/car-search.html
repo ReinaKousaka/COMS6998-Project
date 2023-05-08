@@ -69,9 +69,17 @@
                     </li>
                 </ul>
                 <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
-                </div>
+                  <div id="login-indicator" class="navbar-brand"></div>
+                  <a id="login-button" type="button" class="btn btn-outline-light me-2"
+                  href="login.html">
+                  Login
+                  </a>
+
+                  <button id="logoff-button" type="button" class="btn btn-outline-light me-2"
+                      onclick="handleLogoff()">
+                  Logoff
+                  </button>
+              </div>
             </div>
         </div>
     </nav>
@@ -111,5 +119,6 @@
     <script>
       var sdk = apigClientFactory.newClient({});
     </script>
+    <script src="./js/login.js"></script>
   </body>
 </html>
