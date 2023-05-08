@@ -12,7 +12,7 @@ const createCar = async (car) => {
         console.log(`Car added successfully: ${response}`);
     } catch (err) {
         alert('Warning: failed to add car!');
-        console.error(`failed to add car: ${err}`);
+        console.log(`failed to add car: ${err}`);
     }
 };
 
@@ -33,7 +33,45 @@ const uploadCarHandler = async () => {
         'year': $('#FormControlInput2').val(),
         'miles': $('#FormControlInput3').val(),
         'description': $('#FormControlInput4').val(),
+        'owner': 'yinsongheng@gmail.com'
     });
 };
 
-// export {createCar, updateCar, deleteCar};
+// get called in car-search.html
+const searchCar = async () => {
+    try {
+        let params = {
+            'q': $('#carSearch').val()
+        };
+        let body = {};
+        let additionalParams = {};
+
+        let response = await apigClient.searchGet(params, body, additionalParams);
+        console.log(response)
+        if (response.data == 'No car found') {
+            alert('No cars found');
+            return;
+        }
+
+        const $tbody = $('#carsearch-tbody');
+        // Iterate through the data array
+        $.each(response.data, function (index, item) {
+          const $tr = $('<tr>');
+          $('<th>').text(index + 1).appendTo($tr);
+          $('<td>').text(item.brand).appendTo($tr);
+          $('<td>').text(item.model).appendTo($tr);
+          $('<td>').text(item.year).appendTo($tr);
+          $('<td>').text(item.miles).appendTo($tr);
+          $('<td>').text(item.owner).appendTo($tr);
+      
+          // Append the table row to the tbody
+          $tr.appendTo($tbody);
+        });
+
+        alert('Car searched successfully!');
+        console.log(`Car searched successfully: ${response}`);
+    } catch (err) {
+        alert('Warning: failed to search car!');
+        console.log(`failed to search car: ${err}`);
+    }
+};
