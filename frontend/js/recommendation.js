@@ -39,7 +39,71 @@ const handleGetRecommendation = async () => {
             "year":	'2010',
             "miles": 200000,
             "owner": 'sy3079@columbia.edu'
+        },
+        {
+            "brand": 'Volkswagen',
+            "model": 'Golf',
+            "year":	'2014',
+            "miles": 30000,
+            "owner": 'john231@gmail.com'
+        },
+        {
+            "brand": 'Volkswagen',
+            "model": 'Jetta',
+            "year":	'2017',
+            "miles": 74623,
+            "owner": 'simingzhang@gmail.com'
+        },
+        {
+            "brand": 'Audi',
+            "model": 'Q7',
+            "year":	'2019',
+            "miles": 2315,
+            "owner": 'ezhao19990516@gmail.com'
+        },
+        {
+            "brand": 'Porsche',
+            "model": '911',
+            "year":	'2023',
+            "miles": 100,
+            "owner": 'sy3079@columbia.edu'
+        },
+        {
+            "brand": 'Porsche',
+            "model": 'Cayenne',
+            "year":	'2022',
+            "miles": 650,
+            "owner": 'sy3079@columbia.edu'
+        },
+        {
+            "brand": 'Benz',
+            "model": 'C300',
+            "year":	'2010',
+            "miles": 23658,
+            "owner": 'ez2347@columbia.edu'
+        },
+        {
+            "brand": 'Benz',
+            "model": 'S63',
+            "year":	'2018',
+            "miles": 5532,
+            "owner": 'ez2347@columbia.edu'
+        },
+        {
+            "brand": 'Honda',
+            "model": 'Civic',
+            "year":	'2017',
+            "miles": 6740,
+            "owner": 'Mary26782@gmail.com'
+        },
+        {
+            "brand": 'Honda',
+            "model": 'Accord',
+            "year":	'2021',
+            "miles": 5861,
+            "owner": 'sy3079@columbia.edu'
         }
+
     ];
     if (!user) {
         // TODO:
