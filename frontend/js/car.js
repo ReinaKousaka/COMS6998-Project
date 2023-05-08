@@ -87,7 +87,8 @@ const uploadCarHandler = async () => {
 const searchCar = async () => {
     try {
         let params = {
-            'q': $('#carSearch').val()
+            'q': $('#carSearch').val(),
+            'user': sessionStorage.getItem('user')
         };
         let body = {};
         let additionalParams = {};

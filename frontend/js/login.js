@@ -17,13 +17,25 @@ try {
 
 
 const handleLogin = async () => {
+    const isMatch = (username, password) => {
+        if ((username === 'yinsongheng@gmail.com' && password === '12345678')
+            || (username === 'sy3079@columbia.edu' && password === '12345678')
+            || (username === 'ez2347@columbia.edu' && password === '12345678')
+            || (username === 'ezhao19990516@gmail.com' && password === '12345678')
+        )
+            return true;
+        else {
+            return false;
+        }
+    };
+
     console.log(`handlelogin called`);
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
     // search by username
-    if (username === 'yinsongheng@gmail.com' && password === '12345678') {
+    if (isMatch(username, password)) {
         user = username;
         sessionStorage.setItem('user', username);
         window.location = 'index.html';
