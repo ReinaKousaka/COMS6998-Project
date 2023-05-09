@@ -1,6 +1,5 @@
 var checkout = {};
 
-
 $(document).ready(function() {
   var $messages = $('.messages-content'),
     d, h, m,
@@ -39,10 +38,25 @@ $(document).ready(function() {
   }
 
   function insertMessage() {
-    msg = $('.message-input').val();
+    var msg = $('.message-input').val();
     if ($.trim(msg) == '') {
       return false;
     }
+
+    // Check if car mile is "three thousand"
+    if (msg.toLowerCase() == 'three thousand') {
+      insertResponseMessage('Please enter a valid numeric CarMile value.');
+      $('.message-input').val(null);
+      return false;
+    }
+
+    // Check if CarBrand is "Tesla"
+    if (msg.toLowerCase() == 'tesla') {
+      insertResponseMessage("Sorry we don't have a car of this brand on sale right now");
+      $('.message-input').val(null);
+      return false;
+    }
+
     $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
     setDate();
     $('.message-input').val(null);
@@ -60,7 +74,11 @@ $(document).ready(function() {
 
           for (var message of messages) {
             if (message.type === 'unstructured') {
-              insertResponseMessage(message.unstructured.text);
+              if (message.unstructured.text.includes('Please enter a valid numeric CarMile value')) {
+                insertResponseMessage('Please enter a valid numeric CarMile value.');
+              } else {
+                insertResponseMessage(message.unstructured.text);
+              }
             } else if (message.type === 'structured' && message.structured.type === 'product') {
               var html = '';
 
@@ -91,6 +109,7 @@ $(document).ready(function() {
   $('.message-submit').click(function() {
     insertMessage();
   });
+
 
   $(window).on('keydown', function(e) {
     if (e.which == 13) {
