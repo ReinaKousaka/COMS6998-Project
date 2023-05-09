@@ -85,7 +85,7 @@ def validate_reservation(intent_request):
     if mile:
         try:
             mile = int(mile)
-            if mile < 1 or mile > 1000:  # Adjust the range if needed
+            if mile < 1 or mile > 200000:  # Adjust the range if needed
                 return build_validation_result(False, 'CarMile', 'SpellByWord', 'Please enter a valid numeric CarMile value within the acceptable range (1-1000)')
         except ValueError:
             return build_validation_result(False, 'CarMile', 'SpellByWord', 'Please enter a valid numeric CarMile value')
