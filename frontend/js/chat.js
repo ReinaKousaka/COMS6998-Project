@@ -60,12 +60,8 @@ $(document).ready(function() {
 
           for (var message of messages) {
             if (message.type === 'unstructured') {
-                if (message.unstructured.text.includes('Please enter a valid numeric CarMile value')) {
-                  insertResponseMessage('Please enter a valid numeric CarMile value.');
-                } else {
-                  insertResponseMessage(message.unstructured.text);
-                }
-              } else if (message.type === 'structured' && message.structured.type === 'product') {
+              insertResponseMessage(message.unstructured.text);
+            } else if (message.type === 'structured' && message.structured.type === 'product') {
               var html = '';
 
               insertResponseMessage(message.structured.text);
@@ -115,4 +111,4 @@ $(document).ready(function() {
       i++;
     }, 500);
   }
-});
+}); 
