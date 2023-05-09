@@ -84,7 +84,11 @@ $(document).ready(function() {
       })
       .catch((error) => {
         console.log('an error occurred', error);
-        insertResponseMessage('Oops, something went wrong. Please try again.');
+        if (error.message === 'Invalid CarMile') {
+            insertResponseMessage('Please enter a valid numeric CarMile value.');
+        } else {
+           insertResponseMessage('Oops, something went wrong. Please try again.');
+        }
       });
   }
 
