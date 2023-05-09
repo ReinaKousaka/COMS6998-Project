@@ -82,13 +82,7 @@ def validate_reservation(intent_request):
         if date_to_check < datetime.date.today():
             return build_validation_result(False,'date', 'SpellByWord','Please enter a valid Dining date')
     '''    
-    if mile:
-        try:
-            mile = int(mile)
-            if mile < 1 or mile > 1000:  # Adjust the range if needed
-                return build_validation_result(False, 'CarMile', 'SpellByWord', 'Please enter a valid numeric CarMile value within the acceptable range (1-1000)')
-        except ValueError:
-            return build_validation_result(False, 'CarMile', 'SpellByWord', 'Please enter a valid numeric CarMile value')
+    
         
     if email:
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
