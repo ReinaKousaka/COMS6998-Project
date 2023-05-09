@@ -60,8 +60,12 @@ $(document).ready(function() {
 
           for (var message of messages) {
             if (message.type === 'unstructured') {
-              insertResponseMessage(message.unstructured.text);
-            } else if (message.type === 'structured' && message.structured.type === 'product') {
+                if (message.unstructured.text.includes('Please enter a valid numeric CarMile value')) {
+                  insertResponseMessage('Please enter a valid numeric CarMile value.');
+                } else {
+                  insertResponseMessage(message.unstructured.text);
+                }
+              } else if (message.type === 'structured' && message.structured.type === 'product') {
               var html = '';
 
               insertResponseMessage(message.structured.text);
@@ -84,11 +88,7 @@ $(document).ready(function() {
       })
       .catch((error) => {
         console.log('an error occurred', error);
-        if (error.message === 'Invalid CarMile') {
-            insertResponseMessage('Please enter a valid numeric CarMile value.');
-        } else {
-           insertResponseMessage('Oops, something went wrong. Please try again.');
-        }
+        insertResponseMessage('Oops, something went wrong. Please try again.');
       });
   }
 
